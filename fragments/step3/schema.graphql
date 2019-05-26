@@ -1,0 +1,13 @@
+schema {
+  query: Query
+}
+
+type Greeting {
+  greetingId: String
+  greeting: String
+}
+
+type Query {
+  getGreeting: Greeting
+}
+

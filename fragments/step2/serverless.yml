@@ -1,0 +1,21 @@
+
+
+service: hello-lambda # NOTE: update this with your service name
+
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-west-2
+  profile: sbjs-demo
+
+
+
+functions:
+  hello:
+    handler: handler.hello
+
+resources:
+  # Cognito
+  - ${file(cognito-user-pool.yml)}
+

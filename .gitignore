@@ -1,0 +1,6 @@
+# demo directories
+hello-lambda
+
+# word docs
+*.pptx
+*.docx
