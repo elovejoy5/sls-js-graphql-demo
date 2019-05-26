@@ -24,7 +24,7 @@ Remove function, cloudwatch, etc..:
 $ serverless remove
 ```
 
-# 2: add cognito
+# 2: add cognito, user, web app
 Stolen from:
 https://serverless-stack.com/chapters/configure-cognito-user-pool-in-serverless.html
 
@@ -39,13 +39,28 @@ Do another deploy to create the cognito user pool:
 $ serverless deploy -v
 ```
 
+TODO: create webapp
+
 # 3: add graphql
+Using https://github.com/sid88in/serverless-appsync-plugin 
 
 in hello-lambda folder:
-
 ```
 npm install serverless-appsync-plugin
 ```
+
+# 4: update lambda to support graphql
+
+# Next steps
+- create a webapp that can log in and do query
+- create scrips so that I can do something along the lines of:
+```
+step2.sh # files copied into /hello-lambda
+step3.sh # files copied over
+```
+
+
+# notes...
 
 try a curl:
 ```
@@ -59,8 +74,6 @@ curl \
 so we'll need a user!
 
 ```
-aws --profile sbjs-demo --region us-west-2 cognito-idp \
-admin-create-user --user-pool-id us-west-2_nwDYnGR9h \
---username foo@ondema.io  --temporary-password '!2_nwDYnGR9h'
+aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_nwDYnGR9h --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!2_nwDYnGR9h'
 
 ```
