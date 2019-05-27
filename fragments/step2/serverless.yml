@@ -1,15 +1,11 @@
 
-
-service: hello-lambda # NOTE: update this with your service name
-
+service: hello-lambda 
 
 provider:
   name: aws
   runtime: nodejs8.10
   region: us-west-2
   profile: sbjs-demo
-
-
 
 functions:
   hello:

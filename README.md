@@ -24,14 +24,13 @@ Remove function, cloudwatch, etc..:
 $ serverless remove
 ```
 
-# 2: add cognito, user, web app
+# 2: add cognito, user, check w/ web app
 Stolen from:
 https://serverless-stack.com/chapters/configure-cognito-user-pool-in-serverless.html
 
-from hello-lambda folder
+2.1: add cognito config to serverless.yml:
 ```
-cp ../fragments/cognito-user-pool.yml ./cognito-user-pool.yml
-cp ../fragments/step2_serverless.yml ./serverless.yml
+./setupStep2.sh
 ```
 
 Do another deploy to create the cognito user pool:
@@ -39,45 +38,55 @@ Do another deploy to create the cognito user pool:
 $ serverless deploy -v
 ```
 
-update appConfig w/ new userpool stuff
+Create a test user (swap in new UserPoolId!):
+```
+aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_gQnyJxjII --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!4Password'  --message-action SUPPRESS
 
-Demo: can log in now, graphql error
+```
+
+update basic-client appConfig w/ new UserPoolClientId && UserPoolId
+
+from basic-client root:
+```
+npm start
+```
+
+Demo: can log in as `foo@ondema.io` and see a graphql error
+
+So let's get GraphQL working...
 
 # 3: add graphql
 Using https://github.com/sid88in/serverless-appsync-plugin 
 
-in hello-lambda folder:
+in project root folder:
+```
+./setupStep3.sh
+```
+
+in hello-lambda folder, update serverless.yml to point to correct UserPoolId, and then:
 ```
 npm install serverless-appsync-plugin
+sls deploy -v
 ```
 
-# 4: update lambda to support graphql
-- 
+Now we have a GraphQLApiUrl. Update appConfig & hit refresh. A different error!
+
+Update lambda and deploy just function:
+```
+sls deploy -f hello
+```
 
 # Next steps
-- update webapp to show results of graphql query in browser (including errors)
-- update webapp to echo config
-- create scrips so that I can do something along the lines of:
-```
-step2.sh # files copied into /hello-lambda
-step3.sh # files copied over
-```
-- figure out how to replace hard-coded user pool in step 3 with 
+- figure out how to replace hard-coded user pool in step 3 with variable
+- figure out why graphql not showing up in cloudwatch
 
 # notes...
 
-try a curl:
-```
-curl \
-  -X POST \
-  -H "Content-Type: application/json" \
-  -H "Authorization: 1234" \
-  --data '{ "query": "{ getGreeting { greeting } }" }' \
-  https://tjblfcoda5a6davacddnrreac4.appsync-api.us-west-2.amazonaws.com/graphql
-```
-so we'll need a user!
 
-```
-aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_lZSr5ThO5 --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!2_nwDYnGR9h'
+# to reset demo
 
+Do sls remove to get rid of all the stuff in AWS:
 ```
+sls remove
+```
+Delete the `hello-lambda` folder

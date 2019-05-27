@@ -41,8 +41,9 @@ Resources:
                   - logs:CreateLogGroup
                   - logs:CreateLogStream
                   - logs:PutLogEvents
+                  - lambda:InvokeFunction
                 Resource:
-                  - 'arn:aws:logs:us-west-2:6128-9929-9716:*'
+                  - 'arn:aws:logs:us-west-2:612899299716:*'
 
 # Print out the Id of the User Pool that is created
 Outputs:
