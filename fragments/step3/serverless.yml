@@ -9,11 +9,19 @@ provider:
   region: us-west-2
   profile: sbjs-demo
 
+package:
+  individually: true
+  exclude:
+    - '*/**'
+    - '*'
 
 
 functions:
   hello:
     handler: handler.hello
+    package:
+      include: 
+        - handler.js
 
 resources:
   # Cognito
@@ -28,7 +36,7 @@ custom:
     authenticationType: AMAZON_COGNITO_USER_POOLS
     userPoolConfig:
       defaultAction: ALLOW # required # ALLOW or DENY
-      userPoolId: us-west-2_nwDYnGR9h
+      userPoolId: us-west-2_lZSr5ThO5
     logConfig:
       loggingRoleArn: { Fn::GetAtt: [AppSyncLoggingServiceRole, Arn] } # Where AppSyncLoggingServiceRole is a role with CloudWatch Logs write access
       level: ALL # Logging Level: NONE | ERROR | ALL

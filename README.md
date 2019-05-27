@@ -39,7 +39,9 @@ Do another deploy to create the cognito user pool:
 $ serverless deploy -v
 ```
 
-TODO: create webapp
+update appConfig w/ new userpool stuff
+
+Demo: can log in now, graphql error
 
 # 3: add graphql
 Using https://github.com/sid88in/serverless-appsync-plugin 
@@ -50,15 +52,17 @@ npm install serverless-appsync-plugin
 ```
 
 # 4: update lambda to support graphql
+- 
 
 # Next steps
-- create a webapp that can log in and do query
+- update webapp to show results of graphql query in browser (including errors)
+- update webapp to echo config
 - create scrips so that I can do something along the lines of:
 ```
 step2.sh # files copied into /hello-lambda
 step3.sh # files copied over
 ```
-
+- figure out how to replace hard-coded user pool in step 3 with 
 
 # notes...
 
