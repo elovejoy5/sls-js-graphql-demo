@@ -74,6 +74,6 @@ curl \
 so we'll need a user!
 
 ```
-aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_nwDYnGR9h --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!2_nwDYnGR9h'
+aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_lZSr5ThO5 --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!2_nwDYnGR9h'
 
 ```
