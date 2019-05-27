@@ -6,7 +6,7 @@ https://serverless.com/framework/docs/providers/aws/guide/quick-start/
 Create sls project:
 ```
 $ serverless create --template aws-nodejs --path hello-lambda
-$ cd my-service
+$ cd hello-lambda
 ```
 Update serverless.yml by adding two lies to provider:
 ```
@@ -40,7 +40,7 @@ $ serverless deploy -v
 
 Create a test user (swap in new UserPoolId!):
 ```
-aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_gQnyJxjII --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!4Password'  --message-action SUPPRESS
+aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_TGjVF86sz --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!4Password'  --message-action SUPPRESS
 
 ```
 
@@ -75,13 +75,31 @@ Update lambda and deploy just function:
 ```
 sls deploy -f hello
 ```
+# 4: hack on hello
+
+first, let's tail the logs from our lambda so we can get quick feedback:
+```
+serverless logs -f hello -t
+```
+second, let's get a greeting by editing lambda:
+```
+'use strict';
+module.exports.hello = async (event) => {
+  console.log ("hello sbjs!")
+  return { greeting: 'Go Serverless v1.0! Your function executed successfully!', event };
+};
+```
+
+& deploying
+```
+sls deploy -f hello -v
+```
+when we hit refresh, greeting should show up in browser, and console 
 
 # Next steps
+- make a layer!
 - figure out how to replace hard-coded user pool in step 3 with variable
-- figure out why graphql not showing up in cloudwatch
-
-# notes...
-
+- figure out how to get rid of uuid as username in Amplify header
 
 # to reset demo
 
