@@ -1,15 +1,13 @@
 'use strict';
+const jwt = require('jsonwebtoken');
 
-module.exports.hello = async (event, context) => {
-  console.log("hello called");
-  // return {
-  //   statusCode: 200,
-  //   body: JSON.stringify({
-  //     message: 'Go Serverless v1.0! Your function executed successfully!',
-  //     input: event,
-  //   }),
-  // };
-
+module.exports.hello = async (event) => {
+  const token = event.authorization;
+  const decodedJwt = jwt.decode(token, {
+        complete: true
+    });
+  console.log("event: ", event);
+  console.log("decodedJwt: ", decodedJwt);
   // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  return { greeting: 'Go Serverless v1.0! Your function executed successfully!', event };
+  return { greeting: 'SBJS Serverless v1.0! Your function executed successfully!', event, decodedJwt };
 };

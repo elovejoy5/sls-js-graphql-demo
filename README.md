@@ -40,7 +40,7 @@ $ serverless deploy -v
 
 Create a test user (swap in new UserPoolId!):
 ```
-aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_TGjVF86sz --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!4Password'  --message-action SUPPRESS
+aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_k1gf4SAGq --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!4Password'  --message-action SUPPRESS
 
 ```
 
@@ -96,8 +96,47 @@ sls deploy -f hello -v
 ```
 when we hit refresh, greeting should show up in browser, and console 
 
+# 5: make a layer
+
+using https://github.com/nsriram/aws-lambda-layer-example to try to make jsonwebtoken-lambda-layer
+
+
+create a layer directory
+```
+mkdir jsonwebtoken-lambda-layer
+cd jsonwebtoken-lambda-layer
+npm init -y
+npm install jsonwebtoken
+```
+
+put node_modules inside a new nodejs folder:
+```
+mkdir nodejs
+mv node_modules/ nodejs/node_modules/
+```
+
+working code:
+```
+'use strict';
+const jwt = require('jsonwebtoken');
+
+module.exports.hello = async (event) => {
+  const token = event.authorization;
+  const decodedJwt = jwt.decode(token, {
+        complete: true
+    });
+  console.log("event: ", event);
+  console.log("decodedJwt: ", decodedJwt);
+  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
+  return { greeting: 'SBJS Serverless v1.0! Your function executed successfully!', event, decodedJwt };
+};
+
+```
 # Next steps
 - make a layer!
+   - https://aws.amazon.com/blogs/aws/new-for-aws-lambda-use-any-programming-language-and-share-common-components/
+   - https://serverless.com/framework/docs/providers/aws/guide/layers/
+
 - figure out how to replace hard-coded user pool in step 3 with variable
 - figure out how to get rid of uuid as username in Amplify header
 

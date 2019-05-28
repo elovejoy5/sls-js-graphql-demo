@@ -1,0 +1,77 @@
+
+
+service: hello-lambda # NOTE: update this with your service name
+
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-west-2
+  profile: sbjs-demo
+
+package:
+  individually: true
+  exclude:
+    - '*/**'
+    - '*'
+
+
+functions:
+  hello:
+    handler: handler.hello
+    package:
+      include: 
+        - handler.js
+    layers:
+      - {Ref: JsonwebtokenLambdaLayer}
+
+
+layers:
+  jsonwebtoken:
+    path: jsonwebtoken-lambda-layer # required, path to layer contents on disk
+##    name: ${self:provider.stage}-layerName # optional, Deployed Lambda layer name
+##    description: Description of what the lambda layer does # optional, Description to publish to AWS
+    compatibleRuntimes: # optional, a list of runtimes this layer is compatible with
+      - nodejs8.10
+##    licenseInfo: GPLv3 # optional, a string specifying license information
+##    allowedAccounts: # optional, a list of AWS account IDs allowed to access this layer.
+##      - '*'
+##    retain: false # optional, false by default. If true, layer versions are not deleted as new ones are created
+    package:
+      include:
+        - '*/**'
+        - '*'
+        - jsonwebtoken-lambda-layer/nodejs/node_modules/
+
+resources:
+  # Cognito
+  - ${file(cognito-user-pool.yml)}
+
+plugins:
+   - serverless-appsync-plugin  
+
+custom:
+  appSync:
+    name:  sbjs-demo-api
+    authenticationType: AMAZON_COGNITO_USER_POOLS
+    userPoolConfig:
+      defaultAction: ALLOW # required # ALLOW or DENY
+      userPoolId: us-west-2_k1gf4SAGq
+    logConfig:
+      loggingRoleArn: { Fn::GetAtt: [AppSyncLoggingServiceRole, Arn] } # Where AppSyncLoggingServiceRole is a role with CloudWatch Logs write access
+      level: ALL # Logging Level: NONE | ERROR | ALL
+    mappingTemplates:
+      - dataSource: get_greeting_resolver_ds
+        type: Query
+        field: getGreeting
+        request: "get-greeting-request-mapping-template.vtl"
+        response: "get-greeting-response-mapping-template.vtl"
+    dataSources:
+      - type: AWS_LAMBDA
+        name: get_greeting_resolver_ds
+        description: 'Lambda DataSource'
+        config:
+          functionName: hello 
+
+
+# note: hoping that there's default permission stuff so I won't have to think about it...
