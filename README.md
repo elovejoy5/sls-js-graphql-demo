@@ -40,7 +40,7 @@ $ serverless deploy -v
 
 Create a test user (swap in new UserPoolId!):
 ```
-aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_k1gf4SAGq --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!4Password'  --message-action SUPPRESS
+aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_HyQdWujmH --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!4Password'  --message-action SUPPRESS
 
 ```
 
@@ -137,8 +137,17 @@ module.exports.hello = async (event) => {
    - https://aws.amazon.com/blogs/aws/new-for-aws-lambda-use-any-programming-language-and-share-common-components/
    - https://serverless.com/framework/docs/providers/aws/guide/layers/
 
-- figure out how to replace hard-coded user pool in step 3 with variable
-- figure out how to get rid of uuid as username in Amplify header
+- figure out how to replace hard-coded user pool in step 3 & 4 with variable!
+  ?? maybe prompt to get user pool info & write in as file copied?
+
+- figure out how to get rid of uuid as username in Amplify header ?? maybe issue with command ??
+
+?? maybe create script to create user that promps for userpoolid too?? 
+
+?? put stack details into a config file in the root that all the scripts use ?? 
+
+# questions / issues
+1. figure out why username is not being set correctly for demo cognito account
 
 # to reset demo
 
