@@ -1,5 +1,6 @@
 # demo directories
 hello-lambda
+node_modules
 
 # word docs
 *.pptx

@@ -2,11 +2,14 @@ import React, {Component} from 'react'
 import { withAuthenticator } from 'aws-amplify-react';
 import Amplify,  { Auth, API, graphqlOperation }  from 'aws-amplify';
 
+
 const appConfig = {
-  GraphQLEndpoint: "https://niweefchhbb6xo7jycmfsfzcb4.appsync-api.us-west-2.amazonaws.com/graphql",
-  userPoolId: 'us-west-2_HyQdWujmH',
-  userPoolWebClientId: '3gqao6ov9t86cbr3kun5hqchj3'
+  GraphQLEndpoint: process.env.REACT_APP_GRAPHQL_API,
+  userPoolId: process.env.REACT_APP_USER_POOL_ID,
+  userPoolWebClientId: process.env.REACT_APP_USER_POOL_CLIENT_ID,
 }
+
+console.log("appConfig: ", appConfig);
 
 Amplify.configure({
     Auth: {

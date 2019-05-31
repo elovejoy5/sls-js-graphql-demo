@@ -5,23 +5,19 @@ https://serverless.com/framework/docs/providers/aws/guide/quick-start/
 
 Create sls project:
 ```
-$ serverless create --template aws-nodejs --path hello-lambda
-$ cd hello-lambda
+sbjs-demo$ serverless create --template aws-nodejs --path hello-lambda
+sbjs-demo$ ccd hello-lambda
 ```
 Update serverless.yml by adding two lies to provider:
 ```
   region: us-west-2
-  profile: sbjs-demo
+  profile: sbjs-demo // not needed if you only have one AWS  account
 ```
 
 Deploy & run Lambda Function:
 ```
-$ serverless deploy -v
-$ serverless invoke -f hello -l
-```
-Remove function, cloudwatch, etc..:
-```
-$ serverless remove
+hello-lambda$ serverless deploy -v
+hello-lambda$ serverless invoke -f hello -l
 ```
 
 # 2: add cognito, user, check w/ web app
@@ -30,25 +26,23 @@ https://serverless-stack.com/chapters/configure-cognito-user-pool-in-serverless.
 
 2.1: add cognito config to serverless.yml:
 ```
-./setupStep2.sh
+sbjs-demo$ ./setupStep2.sh
 ```
 
 Do another deploy to create the cognito user pool:
 ```
-$ serverless deploy -v
+hello-lambda$ serverless deploy -v
 ```
+IMPORTANT: put UserPoolClientId && UserPoolId into `basic-client/.env` file!
 
 Create a test user (swap in new UserPoolId!):
 ```
-aws --profile sbjs-demo --region us-west-2 cognito-idp admin-create-user --user-pool-id us-west-2_HyQdWujmH --username foo@ondema.io --user-attributes Name=email,Value=foo@ondema.io Name=email_verified,Value=true --temporary-password '!4Password'  --message-action SUPPRESS
-
+sbjs-demo$ node setupCognitoUser.js
 ```
 
-update basic-client appConfig w/ new UserPoolClientId && UserPoolId
-
-from basic-client root:
+open a terminal in basic-client root:
 ```
-npm start
+basic-client$ npm start
 ```
 
 Demo: can log in as `foo@ondema.io` and see a graphql error
@@ -60,26 +54,27 @@ Using https://github.com/sid88in/serverless-appsync-plugin
 
 in project root folder:
 ```
-./setupStep3.sh
+sbjs-demo$ ./setupStep3.sh
 ```
 
 in hello-lambda folder, update serverless.yml to point to correct UserPoolId, and then:
 ```
-npm install serverless-appsync-plugin
-sls deploy -v
+hello-lambda$ npm install serverless-appsync-plugin
+hello-lambda$ sls deploy -v
 ```
 
-Now we have a GraphQLApiUrl. Update appConfig & hit refresh. A different error!
+Now we have a GraphQLApiUrl. Update .env & restart basic-client. A different error!
 
 Update lambda and deploy just function:
+
 ```
-sls deploy -f hello
+hello-lambda$ sls deploy -f hello
 ```
 # 4: hack on hello
 
 first, let's tail the logs from our lambda so we can get quick feedback:
 ```
-serverless logs -f hello -t
+hello-lambda$ serverless logs -f hello -t
 ```
 second, let's get a greeting by editing lambda:
 ```
@@ -92,7 +87,7 @@ module.exports.hello = async (event) => {
 
 & deploying
 ```
-sls deploy -f hello -v
+hello-lambda$ sls deploy -f hello -v
 ```
 when we hit refresh, greeting should show up in browser, and console 
 
@@ -133,21 +128,16 @@ module.exports.hello = async (event) => {
 
 ```
 # Next steps
-- make a layer!
-   - https://aws.amazon.com/blogs/aws/new-for-aws-lambda-use-any-programming-language-and-share-common-components/
-   - https://serverless.com/framework/docs/providers/aws/guide/layers/
 
-- figure out how to replace hard-coded user pool in step 3 & 4 with variable!
-  ?? maybe prompt to get user pool info & write in as file copied?
-
-- figure out how to get rid of uuid as username in Amplify header ?? maybe issue with command ??
-
-?? maybe create script to create user that promps for userpoolid too?? 
-
-?? put stack details into a config file in the root that all the scripts use ?? 
+- figure out how to replace hard-coded user pool in serverless.yml step 3 & 4 with variable!
+- clean up comments in step 4 serverless.yml
 
 # questions / issues
 1. figure out why username is not being set correctly for demo cognito account
+
+# useful links
+
+TODO
 
 # to reset demo
 

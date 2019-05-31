@@ -1,0 +1,17 @@
+{
+  "name": "sbjs-demo",
+  "version": "1.0.0",
+  "description": "Stolen from sls quickstart:  https://serverless.com/framework/docs/providers/aws/guide/quick-start/",
+  "main": "setupCognitoUser.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "shell.js": "^3.1.0",
+    "shelljs": "^0.8.3"
+  }
+}
