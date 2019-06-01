@@ -36,7 +36,7 @@ custom:
     authenticationType: AMAZON_COGNITO_USER_POOLS
     userPoolConfig:
       defaultAction: ALLOW # required # ALLOW or DENY
-      userPoolId: us-west-2_lZSr5ThO5
+      userPoolId: REACT_APP_USER_POOL_ID #<-- hoping script sets this
     logConfig:
       loggingRoleArn: { Fn::GetAtt: [AppSyncLoggingServiceRole, Arn] } # Where AppSyncLoggingServiceRole is a role with CloudWatch Logs write access
       level: ALL # Logging Level: NONE | ERROR | ALL

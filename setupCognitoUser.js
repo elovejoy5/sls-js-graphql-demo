@@ -1,5 +1,5 @@
 var shell = require('shelljs'); // https://github.com/shelljs/shelljs
-require('dotenv').config({ path: './basic-client/.env' })
+require('dotenv').config({ path: './basic-client/.env' }) // https://github.com/motdotla/dotenv
 
 // const userPoolId = config().UserPoolId;
 
@@ -14,6 +14,6 @@ const sanity = {
 const adminCreateUser = `aws --profile ${sanity.profile} --region us-west-2 cognito-idp admin-create-user --user-pool-id ${process.env.REACT_APP_USER_POOL_ID} --username '${sanity.user}' --user-attributes Name=email,Value=${sanity.email} Name=email_verified,Value=true --temporary-password ${sanity.password} --message-action SUPPRESS`;
 
 shell.echo("cmd: \n" + adminCreateUser)
-shell.echo("\nCreating test user foo@ondema.io");
+shell.echo("\nCreating test user foo@ondema.io w/ temp pass: '!4Password' ");
 
 shell.exec(adminCreateUser);

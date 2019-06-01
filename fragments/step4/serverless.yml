@@ -25,18 +25,11 @@ functions:
     layers:
       - {Ref: JsonwebtokenLambdaLayer}
 
-
 layers:
   jsonwebtoken:
     path: jsonwebtoken-lambda-layer # required, path to layer contents on disk
-##    name: ${self:provider.stage}-layerName # optional, Deployed Lambda layer name
-##    description: Description of what the lambda layer does # optional, Description to publish to AWS
     compatibleRuntimes: # optional, a list of runtimes this layer is compatible with
       - nodejs8.10
-##    licenseInfo: GPLv3 # optional, a string specifying license information
-##    allowedAccounts: # optional, a list of AWS account IDs allowed to access this layer.
-##      - '*'
-##    retain: false # optional, false by default. If true, layer versions are not deleted as new ones are created
     package:
       include:
         - '*/**'
@@ -56,7 +49,7 @@ custom:
     authenticationType: AMAZON_COGNITO_USER_POOLS
     userPoolConfig:
       defaultAction: ALLOW # required # ALLOW or DENY
-      userPoolId: us-west-2_k1gf4SAGq
+      userPoolId: REACT_APP_USER_POOL_ID
     logConfig:
       loggingRoleArn: { Fn::GetAtt: [AppSyncLoggingServiceRole, Arn] } # Where AppSyncLoggingServiceRole is a role with CloudWatch Logs write access
       level: ALL # Logging Level: NONE | ERROR | ALL
