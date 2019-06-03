@@ -1,3 +1,5 @@
+A quick technical demo of how to set up a GraphQL API w/ Javascript on AWS
+
 # So how do we setup a GraphQL API in under an hour?
 
 First, we make a bunch of assumptions: 
@@ -17,7 +19,7 @@ Second, we set out to quickly set up a very hello-world GraphQL API:
 Along the way, we'll probably look at yaml files, logging, environment variables, a quick-and-dirty react client, etc...
 
 # 1: init serverless
-Stolen from sls quickstart: 
+We can use the sls quickstart to create a lambda function: 
 https://serverless.com/framework/docs/providers/aws/guide/quick-start/
 
 Create sls project:
@@ -36,6 +38,10 @@ Deploy & run Lambda Function:
 hello-lambda$ serverless deploy -v
 hello-lambda$ serverless invoke -f hello -l
 ```
+
+## Result:
+- serverless.yml configuration file
+- a lambda function we can invoke via CLI or AWS console
 
 # 2: add cognito, user, check w/ web app
 Stolen from:
@@ -65,6 +71,12 @@ basic-client$ npm start
 Demo: can log in as `foo@ondema.io` and see a graphql error
 
 So let's get GraphQL working...
+
+## Result:
+In addition to the lambda from first deploy:
+- a directory and a user account in the directory
+- updated serverless.yml configuration file
+- a mechanism for sharing configuration information
 
 # 3: add graphql
 Using https://github.com/sid88in/serverless-appsync-plugin 
@@ -96,6 +108,12 @@ and deploy just function:
 hello-lambda$ sls deploy -f hello
 ```
 when we hit refresh, greeting should show up in browser: GraphQL working!
+
+## Result:
+In addition to the lambda, directory, and user account from first two deploys:
+- an appsync instance to serve GraphQL queries
+- A GraphQL schema
+- Our lambda function can now answer GraphQL queries
 
 # 4: make a layer
 borrowing from  https://github.com/nsriram/aws-lambda-layer-example 
@@ -144,6 +162,16 @@ deploy & tail the logs from our lambda so we can get quick feedback:
 hello-lambda$ serverless deploy -v
 hello-lambda$ serverless logs -f hello -t
 ```
+## Result:
+In addition to the lambda, directory, user account, & GraphQL endpoint from first two deploys:
+- A layer that lambda function can use
+- Lambda function using a node module from the layer
+- Dynamically adding a value from Coginto to the GraphQL API
+- We learned how to tail a function while coding
+
+# Links
+
+https://serverless.com/framework/docs/getting-started/
 
 # to reset demo
 

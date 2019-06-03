@@ -1,7 +1,7 @@
 {
-  "name": "sbjs-demo",
+  "name": "sls-js-graphql-demo",
   "version": "1.0.0",
-  "description": "Stolen from sls quickstart:  https://serverless.com/framework/docs/providers/aws/guide/quick-start/",
+  "description": "Tutorial: seting up a graphql API w/ JavaScript",
   "main": "setupCognitoUser.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
