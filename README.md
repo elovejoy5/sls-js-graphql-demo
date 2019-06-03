@@ -170,8 +170,14 @@ In addition to the lambda, directory, user account, & GraphQL endpoint from firs
 - We learned how to tail a function while coding
 
 # Links
-
+Serverless:
 https://serverless.com/framework/docs/getting-started/
+Appsync pluggin for serverless:
+https://github.com/sid88in/serverless-appsync-plugin 
+AWS Amplify JS library:
+https://github.com/aws-amplify/amplify-js
+GraphQL:
+https://graphql.org/learn/
 
 # to reset demo
 
