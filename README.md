@@ -121,7 +121,7 @@ cd ..
 
 update serverless config to create layer:
 ```
-sbjs-demo$ node setupStep3.js
+sbjs-demo$ node setupStep4.js
 ```
 
 Update lambda to use the module that we put in our layer:
@@ -145,14 +145,15 @@ hello-lambda$ serverless deploy -v
 hello-lambda$ serverless logs -f hello -t
 ```
 
-# useful links
-
-TODO
-
 # to reset demo
 
 Do sls remove to get rid of all the stuff in AWS:
 ```
-sls remove
+hello-lambda$ sls remove && cd .. && rm -R ./hello-lambda
 ```
-Delete the `hello-lambda` folder
+## Prep for demo:
+1. make sure hello-lambda removed from AWS
+2. make sure hello-lambda folder is deleted
+3. log into AWS console
+4. VS open to sbjs-demo
+5. terminal open to sbjs-demo
