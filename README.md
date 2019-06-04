@@ -20,6 +20,14 @@ Second, we set out to quickly set up a very hello-world GraphQL API:
 
 Along the way, we'll probably look at yaml files, logging, environment variables, a quick-and-dirty react client, etc...
 
+# 0: To run through this demo on your local
+Assuming you have node & npm dialed in:
+1. create an AWS account and create a profile called sbjs-demo
+2. install serverless (`npm install -g serverless`)
+3. clone this repo, cd into root folder && npm install
+4. do an npm install in basic-client folder too
+
+
 # 1: init serverless
 We can use the sls quickstart to create a lambda function: 
 https://serverless.com/framework/docs/providers/aws/guide/quick-start/
