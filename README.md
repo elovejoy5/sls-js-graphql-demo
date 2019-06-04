@@ -183,11 +183,13 @@ https://graphql.org/learn/
 
 Do sls remove to get rid of all the stuff in AWS:
 ```
-hello-lambda$ sls remove && cd .. && rm -R ./hello-lambda
+hello-lambda$ sls remove
+cd ..
+rm -R ./hello-lambda
 ```
 ## Prep for demo:
 1. make sure hello-lambda removed from AWS
 2. make sure hello-lambda folder is deleted
 3. log into AWS console
-4. VS open to sbjs-demo
-5. terminal open to sbjs-demo
+4. VS open to sbjs-demo: font big!
+5. terminal open to sbjs-demo: font big!
