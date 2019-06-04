@@ -1,4 +1,4 @@
-A quick technical demo of how to set up a GraphQL API w/ Javascript on AWS
+A quick technical demo of how to set up a GraphQL API w/ Javascript on AWS. Video:
 
 [![Video of this demo](https://img.youtube.com/vi/U2ASfG69yRY/0.jpg)](https://www.youtube.com/embed/U2ASfG69yRY?start=815) 
 
