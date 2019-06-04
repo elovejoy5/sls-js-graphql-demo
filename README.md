@@ -1,5 +1,7 @@
 A quick technical demo of how to set up a GraphQL API w/ Javascript on AWS
 
+[![Video of this demo](https://img.youtube.com/vi/U2ASfG69yRY/0.jpg)](https://www.youtube.com/embed/U2ASfG69yRY?start=815) 
+
 # So how do we setup a GraphQL API in under an hour?
 
 First, we make a bunch of assumptions: 
